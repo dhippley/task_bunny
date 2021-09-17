@@ -8,8 +8,8 @@ defmodule TaskBunny.Message do
   However in case you need to encode/decode TaskBunny messages,
   this module will help.
   """
-  alias TaskBunny.Message.DecodeError
   alias TaskBunny.JobError
+  alias TaskBunny.Message.DecodeError
 
   @doc """
   Encode message body in JSON with job and argument.
@@ -17,7 +17,7 @@ defmodule TaskBunny.Message do
   @spec encode(atom, any) :: {:ok, String.t()}
   def encode(job, payload) do
     data = message_data(job, payload)
-    Poison.encode(data, pretty: true)
+    Jason.encode(data, pretty: true)
   end
 
   @doc """
@@ -26,7 +26,7 @@ defmodule TaskBunny.Message do
   @spec encode!(atom, any) :: String.t()
   def encode!(job, payload) do
     data = message_data(job, payload)
-    Poison.encode!(data, pretty: true)
+    Jason.encode!(data, pretty: true)
   end
 
   @spec message_data(atom, any) :: map
@@ -43,7 +43,7 @@ defmodule TaskBunny.Message do
   """
   @spec decode(String.t()) :: {:ok, map} | {:error, any}
   def decode(message) do
-    case Poison.decode(message) do
+    case Jason.decode(message) do
       {:ok, decoded} ->
         job = decode_job(decoded["job"])
 
@@ -118,9 +118,9 @@ defmodule TaskBunny.Message do
 
   def add_error_log(raw_message, error) do
     raw_message
-    |> Poison.decode!()
+    |> Jason.decode!()
     |> add_error_log(error)
-    |> Poison.encode!(pretty: true)
+    |> Jason.encode!(pretty: true)
   end
 
   defp host do
@@ -141,7 +141,7 @@ defmodule TaskBunny.Message do
 
   def failed_count(raw_message) do
     raw_message
-    |> Poison.decode!()
+    |> Jason.decode!()
     |> failed_count()
   end
 end
