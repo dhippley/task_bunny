@@ -21,7 +21,8 @@ defmodule TaskBunny.Supervisor do
 
   @doc false
   @spec init(list()) ::
-          {:ok, {:supervisor.sup_flags(), [Supervisor.Spec.spec()]}}
+          # {:ok, {:supervisor.sup_flags(), [Supervisor.Spec.spec()]}}
+          {:ok, {:supervisor.sup_flags(), [Supervisor.spec()]}}
           | :ignore
   def init([wsv_name, ps_name]) do
     # Add Connection severs for each hosts

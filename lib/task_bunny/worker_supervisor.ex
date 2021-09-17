@@ -19,7 +19,7 @@ defmodule TaskBunny.WorkerSupervisor do
   end
 
   @doc false
-  @spec init(list) :: {:ok, {:supervisor.sup_flags(), [Supervisor.Spec.spec()]}} | :ignore
+  @spec init(list) :: {:ok, {:supervisor.sup_flags(), [Supervisor.spec()]}} | :ignore
   def init([]) do
     Config.workers()
     |> Enum.map(fn config ->
