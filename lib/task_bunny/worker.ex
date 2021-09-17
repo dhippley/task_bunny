@@ -13,12 +13,13 @@ defmodule TaskBunny.Worker do
   alias TaskBunny.{
     Connection,
     Consumer,
+    FailureBackend,
     JobRunner,
-    Queue,
-    Publisher,
-    Worker,
     Message,
-    FailureBackend
+    Publisher,
+    Queue,
+    Worker,
+
   }
 
   @typedoc """
