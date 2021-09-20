@@ -21,3 +21,6 @@ erl_crash.dump
 
 # asdf version file
 .tool-versions
+
+# MacOS Finder Artifacts
+.DS_Store 
