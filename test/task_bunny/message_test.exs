@@ -8,6 +8,15 @@ defmodule TaskBunny.MessageTest do
     def perform(payload), do: {:ok, payload["name"]}
   end
 
+  defp try_stacktrace() do
+    try do
+      raise "Error"
+    rescue
+      _ ->
+        __STACKTRACE__
+    end
+  end
+
   describe "encode/decode message body(payload)" do
     test "encode and decode payload" do
       {:ok, encoded} = Message.encode(NameJob, %{"name" => "Joe"})
@@ -47,7 +56,7 @@ defmodule TaskBunny.MessageTest do
         error_type: :return_value,
         return_value: {:error, :test_error},
         failed_count: 0,
-        stacktrace: Process.info(self(), :current_stacktrace),
+        stacktrace: try_stacktrace(),
         raw_body: "abcdefg"
       }
 

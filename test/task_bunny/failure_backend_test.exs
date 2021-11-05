@@ -34,8 +34,17 @@ defmodule TaskBunny.FailureBackendTest do
     Map.merge(@job_error, %{
       error_type: :exception,
       exception: RuntimeError.exception("Hello"),
-      stacktrace: Process.info(self(), :current_stacktrace),
+      stacktrace: try_stacktrace()
     })
+  end
+
+  defp try_stacktrace() do
+    try do
+      raise "Error"
+    rescue
+      _ ->
+        __STACKTRACE__
+    end
   end
 
   describe "report_job_error/1" do
