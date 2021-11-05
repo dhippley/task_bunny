@@ -19,8 +19,8 @@ defmodule TaskBunny.WorkerSupervisor do
   end
 
   @doc false
-  @spec init(list) :: {:ok, {:supervisor.sup_flags(), [Supervisor.spec()]}} | :ignore
   def init([]) do
+    IO.inspect(Config.workers())
     Config.workers()
     |> Enum.map(fn config ->
       worker(
@@ -29,7 +29,7 @@ defmodule TaskBunny.WorkerSupervisor do
         id: "task_bunny.worker.#{config[:queue]}"
       )
     end)
-    |> supervise(strategy: :one_for_one)
+    |> Supervisor.init(strategy: :one_for_one)
   end
 
   @doc """

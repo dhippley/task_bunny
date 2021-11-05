@@ -19,11 +19,6 @@ defmodule TaskBunny.Supervisor do
     Supervisor.start_link(__MODULE__, [wsv_name, ps_name], name: name)
   end
 
-  @doc false
-  @spec init(list()) ::
-          # {:ok, {:supervisor.sup_flags(), [Supervisor.Spec.spec()]}}
-          {:ok, {:supervisor.sup_flags(), [Supervisor.spec()]}}
-          | :ignore
   def init([wsv_name, ps_name]) do
     # Add Connection severs for each hosts
     connections =
@@ -56,7 +51,7 @@ defmodule TaskBunny.Supervisor do
           []
       end
 
-    supervise(children, strategy: :one_for_all)
+    Supervisor.init(children, strategy: :one_for_all)
   end
 
   defp publisher_config(name) do

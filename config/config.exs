@@ -31,7 +31,7 @@ use Mix.Config
 config :task_bunny,
   hosts: [
     default: [
-      connect_options: []
+      connect_options: ["amqp://guest:guest@localhost:15672"]
     ]
   ]
 

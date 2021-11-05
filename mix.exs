@@ -77,7 +77,7 @@ defmodule TaskBunny.Mixfile do
     [
       {:amqp, "~> 1.1"},
       {:jason, "~> 1.1"},
-      # {:poison, "~> 2.0 or ~> 3.0"},
+      {:poison, "~> 2.0 or ~> 3.0"},
 
       # dev/test
       {:credo, "~> 1.4", only: [:dev]},
