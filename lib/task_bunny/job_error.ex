@@ -1,4 +1,5 @@
 defmodule TaskBunny.JobError do
+  @derive Jason.Encoder
   @moduledoc """
   A struct that holds an error information occured during the job processing.
 
@@ -37,7 +38,7 @@ defmodule TaskBunny.JobError do
           pid: pid | nil,
           reject: boolean
         }
-
+  @derive Jason.Encoder
   defstruct job: nil,
             payload: nil,
             error_type: nil,
